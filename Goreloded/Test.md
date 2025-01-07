@@ -74,3 +74,8 @@ func MultiWriter(writers ...Writer) Writer
 uintptr - NewFile - syscall - fileDescriptor - io.Writer - bufio 
 - the deffirent between os.ReadFile and bufio.NewScanner
 - 
+
+
+(hex , bin , up , low , cap )
+
+

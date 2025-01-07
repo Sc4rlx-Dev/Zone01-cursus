@@ -16,19 +16,22 @@ func main() {
 	if err != nil {	fmt.Println("Error opening file:", err)	
 					return}
 	defer file.Close()
-
 	//////////////////////( Reading from file )//////////////////////////
-
 	var lines []string
 	rd := bufio.NewReader(file)
-	for {	line1, err := rd.ReadString('\n')
-		if err != nil { if len(line1) > 0 { lines = append(lines, line1) }
-			break }
-		lines = append(lines, line1) }
+	for {	
+		line1, err := rd.ReadString('\n')
+		if err != nil {
+			if len(line1) > 0 {
+				lines = append(lines, line1)
+			}
+			break
+		}
+		lines = append(lines, line1)
+	}
 	line := strings.Join(lines, "")
-
+	// text.txt
 	//////////////////////( writing to file )//////////////////////////
-
 	file1 , err := os.Create("output.txt")
 	if err != nil { fmt.Println("Opps Error in Creating", err)
 					return} 
@@ -38,31 +41,12 @@ func main() {
 	if err != nil { fmt.Println("Opps Error in Writing", err)
 					return}
 	fmt.Println("Data Written Successfully")}
-
 	//////////////////(Helpers Functions)//////////////////////////////
-func ft_openFile(fileName string) (*os.File, error) { file, err := os.Open(fileName)
+func ft_openFile(fileName string) (*os.File, error) {
+	file, err := os.Open(fileName)
 	if err != nil {	return nil, fmt.Errorf("error opening file: %v", err)}
 	return file, nil
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // package main
