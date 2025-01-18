@@ -1,0 +1,27 @@
+Test4 :
+Test :
+Punctuation tests are ... kinda boring ,what do you think ?
+
+Result :
+Punctuation tests are... kinda boring, what do you think?
+
+
+"As Elton John said: ' I am the most well-known homosexual in the world '" 
+
+    // Replace punctuation
+    punctPattern := regexp.MustCompile(`\s*([.,!?;:])`)
+    text = punctPattern.ReplaceAllStringFunc(text, func(s string) string {
+        parts := punctPattern.FindStringSubmatch(s)
+        return parts[1] // Return punctuation without spaces
+    })
+
+    // Handle groups of punctuation like "..."
+    groupPunctPattern := regexp.MustCompile(`([.]{3}|[!?]{2,})`)
+    text = groupPunctPattern.ReplaceAllStringFunc(text, func(s string) string {
+        return s // Keep the group as is
+    })
+
+    // Add spaces after punctuation except for grouped ones
+    singlePunctPattern := regexp.MustCompile(`([.,!?;:])(\S)`)
+    text = singlePunctPattern.ReplaceAllString(text, "$1 $2")
+
