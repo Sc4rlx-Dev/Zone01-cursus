@@ -12,39 +12,50 @@ func main() {
 	var fileName string
 	fmt.Print("Enter the name of the file: ")
 	fmt.Scanln(&fileName)
-	file, err := ft_openFile(fileName) 
-	if err != nil {	fmt.Println("Error opening file:", err)	
-					return}
+	file, err := ft_openFile(fileName)
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return
+	}
 	defer file.Close()
+
 	//////////////////////( Reading from file )//////////////////////////
 	var lines []string
 	rd := bufio.NewReader(file)
-	for {	
-		line1, err := rd.ReadString('\n')
+	for {
+		line, err := rd.ReadString('\n')
 		if err != nil {
-			if len(line1) > 0 {
-				lines = append(lines, line1)
+			if len(line) > 0 {
+				lines = append(lines, line)
 			}
 			break
 		}
-		lines = append(lines, line1)
+		lines = append(lines, line)
 	}
 	line := strings.Join(lines, "")
-	// text.txt
+	
 	//////////////////////( writing to file )//////////////////////////
-	file1 , err := os.Create("output.txt")
-	if err != nil { fmt.Println("Opps Error in Creating", err)
-					return} 
-		defer file1.Close()
+	file1, err := os.Create("output.txt")
+	if err != nil {
+		fmt.Println("Opps Error in Creating", err)
+		return
+	}
+	defer file1.Close()
 	data := []byte(line)
 	_, err = file1.Write(data)
-	if err != nil { fmt.Println("Opps Error in Writing", err)
-					return}
-	fmt.Println("Data Written Successfully")}
-	//////////////////(Helpers Functions)//////////////////////////////
+	if err != nil {
+		fmt.Println("Opps Error in Writing", err)
+		return
+	}
+	fmt.Println("Data Written Successfully")
+}
+
+//////////////////(Helpers Functions)//////////////////////////////
 func ft_openFile(fileName string) (*os.File, error) {
 	file, err := os.Open(fileName)
-	if err != nil {	return nil, fmt.Errorf("error opening file: %v", err)}
+	if err != nil {
+		return nil, fmt.Errorf("error opening file: %v", err)
+	}
 	return file, nil
 }
 
