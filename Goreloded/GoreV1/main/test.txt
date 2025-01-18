@@ -1,0 +1,2 @@
+the first declar text := split --> for --> every line with using function fielde  to remove any  
+ t
