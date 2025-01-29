@@ -1,54 +1,31 @@
 package main
 
-import (
-	"fmt"
-	"log"
-	"os"
-	"strings"
-	// "goreloded"
-)
+import ("fmt" ; "os" ;"strings")
 
-func readFile(filename string) string {
-	data, err := os.ReadFile(filename)
-	if err != nil {
-		log.Fatalf("Failed to read file %s: %v", filename, err)
-	}
-	return string(data)
-}
+func main() {    
+	if len(os.Args) != 3 { fmt.Println("Usage: go run . <input file> <output file>")
+	return}
 
-func moveToResult(result string) {
-	args2 := os.Args[2]
-	err := os.WriteFile(args2, []byte(result), 0644)
-	if err != nil {
-		log.Fatalf("Failed to write to file %s: %v", args2, err)
-	}
-}
+	inputF := os.Args[1]
+	outputF := os.Args[2]
+	c, err := os.ReadFile(inputF)
 
-func main() {
-	args := os.Args[1:]
-	if len(args) < 2 {
-		fmt.Println("Missing arguments: input file and output file are required.")
-		return
-	}
+	if err != nil { fmt.Println("Error reading file:", err) 
+	return}
 
-	// Read input file
-	inputFile := args[0]
-	outputFile := args[1]
-	text := readFile(inputFile)
+	if !strings.HasSuffix(inputF, ".txt") || !strings.HasSuffix(outputF, ".txt") { fmt.Println("Error Invalid format of file: should be file.txt\n<usage example: go run . sample.txt result.txt>")
+	return}
 
-	// Process text
-	result := processText(text)
+	res := processText(string(c))
+	final_res := ""
 
-	// Convert processed lines back to a single string
-	finalResult := ""
-	for i, line := range result {
-		finalResult += strings.Join(line, " ")
-		if i < len(result)-1 {
-			finalResult += "\n"
-		}
-	}
+	for i, line := range res { final_res += strings.Join(line, " ") 
+		if i < len(res) -1 { final_res += "\n" }}
 
-	// Write to output file
-	moveToResult(finalResult)
-	fmt.Println("Processing complete. Output written to", outputFile)
+	err = os.WriteFile(outputF, []byte(final_res), 0644)
+
+	if err != nil { fmt.Println("Error writing file:", err)
+	return}
+
+	fmt.Println("Success!!")
 }
