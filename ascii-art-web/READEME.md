@@ -144,7 +144,10 @@ http://localhost:8080
 ---
 
 ## 📄 License
-MIT License. Feel free to use and modify.
+
+@Sc4rlx-Dev
+@0k4run
+@morida
 
 ---
 
