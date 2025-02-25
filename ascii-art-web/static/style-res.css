@@ -1,0 +1,64 @@
+body {
+    background-color: #29263C;
+    color: whitesmoke;
+    background-image: url(assets/wobbles.svg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.res-container {
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    transform: translateY(100%);
+    animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    position: fixed;
+    inset: 0px;
+    max-width: 35%;
+    max-height: 60%;
+    margin: auto;
+    padding: 1rem;
+    width: auto;
+}
+
+.ascii-container {
+    background-color: rgb(39, 39, 39);
+    text-align: center;
+    white-space: pre;
+    font-family: monospace;
+    overflow-x: auto;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(100%);
+    }
+    30% {
+        transform: translateY(-10%);
+    }
+    50% {
+        transform: translateY(5%);
+    }
+    70% {
+        transform: translateY(-3%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}

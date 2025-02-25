@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/styles.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <title>Ascii-Art WEB</title>
+</head>
+<body>
+    <form action="/ascii-art" method="post" autocomplete="off">
+        <img src="/static/assets/logo.svg" alt="Logo" width="500" height="200">
+        <textarea name="user_input" placeholder="Enter text here"></textarea>
+        <br>
+        <select name="option" id="option">
+            <option value="standard">Standard</option>
+            <option value="shadow">Shadow</option>
+            <option value="thinkertoy">Thinkertoy</option>
+        </select>
+        <br>
+        <input type="image" src="/static/assets/runbutt.svg" height="55px" alt="Run Button"/>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const inputField = document.querySelector('textarea[name="user_input"]');
+            
+            inputField.addEventListener("keydown", function(event) {
+                // If the Enter key is pressed without Shift, prevent form submission and insert a new line
+                if (event.key === "Enter" && !event.shiftKey) {
+                    event.preventDefault();
+                    const start = this.selectionStart;
+                    const end = this.selectionEnd;
+                    this.value = this.value.substring(0, start) + "\n" + this.value.substring(end);
+                    this.selectionStart = this.selectionEnd = start + 1;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
