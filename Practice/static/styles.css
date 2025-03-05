@@ -1,0 +1,65 @@
+body {
+    background-image: url("/static/img/pic2.png");
+    /* background-size: contain; */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    font-family: Arial, fantasy;
+
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+
+    color: rgb(0, 0, 0);
+}
+
+h1 {
+    text-align: center;
+    color: rgb(0, 0, 0);
+    margin-bottom: 20px;
+}
+
+
+form {
+    width: 100%; /* Makes form fill the container */
+    margin: 0; /* Remove top margin */
+}
+
+input {
+    text-align: left;
+    display: block;
+    width: 100%; /* Adjust width */
+    margin: 8px ; 
+    padding: 10px;
+    border-radius: 5px; /* Rounded corners */
+}
+
+button {
+    width: 108%;
+    margin: 7px;
+    padding: 3px 3px;
+    background-color: #06ffeaa0;
+    color: rgb(0, 0, 0);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #06ffeaa0;
+}
+
+
+.form-container {
+    display: flex;
+    flex-direction: column; /* Stacks input and button */
+    justify-content: center; /* Centers vertically */
+    align-items: center; /* Centers horizontally */
+    width: 300px; /* Set a fixed width for the box */
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2); /* Optional: Transparent background */
+    border-radius: 10px; /* Optional: Rounded edges */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Optional: Adds a soft shadow */
+    margin: auto; /* Centers the container */
+}
