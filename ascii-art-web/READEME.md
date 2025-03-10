@@ -145,9 +145,9 @@ http://localhost:8080
 
 ## 📄 License
 
-@Sc4rlx-Dev
+[Sc4rlx-Dev](https://github.com/Sc4rlx-Dev)
 [0k4run](https://github.com/0k4run)
-[]morida(google.com)
+[morida](https://github.com/Uch1ha657)
 
 ---
 
