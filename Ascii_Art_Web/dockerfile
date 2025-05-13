@@ -1,0 +1,20 @@
+FROM golang:alpine
+
+WORKDIR /app
+
+RUN apk add  bash
+
+COPY . .
+
+RUN go build -o main ./cmd
+
+LABEL maintainer.one="abdrahman <sarghini@gmail.com>"
+LABEL maintainer.two="morida <morida@gmail.com>"
+LABEL maintainer.three="oerraoui <scarlx@gmail.com>"
+
+LABEL description="Ascii art web"
+LABEL version="1.0.0"
+
+EXPOSE 8080
+
+CMD ["./main"]

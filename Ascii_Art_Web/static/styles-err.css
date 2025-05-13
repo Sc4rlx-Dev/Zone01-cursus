@@ -1,0 +1,25 @@
+body {
+    background-image: url("assets/wobbles.svg");
+    height: 100vh;
+    background-color: #29263C;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+* {
+    font-family: "Audiowide", serif;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100vh;
+    width: auto;
+    height: auto;
+    display: block;
+}
