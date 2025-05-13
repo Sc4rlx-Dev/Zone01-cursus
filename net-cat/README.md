@@ -21,6 +21,9 @@ This is a simple TCP-based chat application written in Go. It consists of a serv
 - `server/`
   - `main.go`: The TCP chat server implementation.
   - `welcome_logo.go`: Contains the ASCII art welcome logo displayed to clients on connection.
+- `client/`
+  - `main.go`: The TCP chat client implementation.
+
 ## Features
 
 - Multiple clients can connect to the server concurrently (up to a maximum limit).
@@ -56,6 +59,8 @@ This is a simple TCP-based chat application written in Go. It consists of a serv
 2. Run the client with the server IP and port as arguments:
 
    ```bash
+   go run client/main.go <server-ip> <server-port>
+   or
    nc localhost $port
    ```
 
@@ -67,7 +72,7 @@ This is a simple TCP-based chat application written in Go. It consists of a serv
 
 3. When prompted, enter your username to join the chat.
 
-4. In your Keyboard Press CTRL+C to exit.
+4. Type messages and press Enter to send them. Type `/quit` to exit.
 
 ## Technologies Used
 
@@ -76,9 +81,11 @@ This is a simple TCP-based chat application written in Go. It consists of a serv
 - TCP/UDP
 - TCP/UDP connection
 - TCP/UDP socket
+- Go concurrency
 - Channels
 - Goroutines
 - Mutexes
+- IP and ports
 
 ## Notes
 
@@ -91,8 +98,5 @@ This is a simple TCP-based chat application written in Go. It consists of a serv
 
 
 - [El Mahmoudi Abderrahman] - Initial development
-- [Oussama Er-raoui](https://github.com/Sc4rlx-Dev)
+- [oussama erraoui] - Initial development
 - [Yassine Bouhadi] - Initial development
-
-Check the full Documentation of Net_Cat for more understanding :
-https://medium.com/@elmahmoudimars/net-cat-golang-79d59822aa57

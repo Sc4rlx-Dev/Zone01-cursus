@@ -1,4 +1,4 @@
-package main
+package server
 
 var welcomeLogo = "Welcome to TCP-Chat!\n" +
 	"         _nnnn_\n" +
