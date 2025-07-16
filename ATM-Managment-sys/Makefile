@@ -17,3 +17,10 @@ fclean : clean
 
 clean :
 	rm -f $(objects)
+
+help:
+	@echo "Available targets:"
+	@echo "  atm      - Build the ATM executable."
+	@echo "  clean    - Remove object files."
+	@echo "  fclean   - Remove object files and the ATM executable."
+	@echo "  help     - Display this help message."
