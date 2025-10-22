@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Forum</title>
+    <script src="https://use.fontawesome.com/fe459689b4.js"></script>
+    <link rel="stylesheet" href="../static/css/homeStyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    
+    <script defer src="/static/script.js"></script>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <h1><a href="/posts">Forum</a></h1>
+        </div>
+        <nav class="nav-right">
+            <div class="user-section">
+                <span class="username">{{if .Username}}{{ .Username }}{{end}}</span>
+                <img src="/static/defaultAV.png" alt="Profile Picture" class="profile-img">
+                {{if .Username}}
+                <a href="/logout" class="logout-btn">Log Out</a>
+                <button id="createPostBtn" class="btn create-post-btn" type="button">
+                    <i class="fa fa-plus"></i> Create Post
+                </button>
+                {{else}}
+                <a href="/login" class="login-btn">Log In</a>
+                {{end}}
+            </div>
+        </nav>
+    </header>
+
+    <div class="filter-section">
+        <form method="get" action="/posts">
+            <label for="category">Filter by category:</label>
+            <select id="category" name="category">
+                  <option selected > choose Categories </option>
+                <option value="sport">sport</option>
+                <option value="jobs">jobs</option>
+                <option value="news">news</option>
+                <option value="movies">movies</option>
+                <option value="tech">tech</option>
+            </select>
+            {{if .Username}}
+            <!-- Add this somewhere in your template, maybe near the category filter -->
+<div class="post-filter">
+    <label>
+        <input type="radio" name="post" value="" {{if eq .PostFilter ""}}checked{{end}}> All Posts
+    </label>
+    <label>
+        <input type="radio" name="post" value="my" {{if eq .PostFilter "my"}}checked{{end}}> My Posts
+    </label>
+    <label>
+        <input type="radio" name="post" value="liked" {{if eq .PostFilter "liked"}}checked{{end}}> Liked Posts
+    </label>
+    <label>
+        <input type="radio" name="post" value="disliked" {{if eq .PostFilter "disliked"}}checked{{end}}> Disliked Posts
+    </label>
+</div>
+
+<script>
+document.querySelectorAll('input[name="post"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const url = new URL(window.location.href);
+        const params = new URLSearchParams(url.search);
+        
+        if (this.value) {
+            params.set('post', this.value);
+        } else {
+            params.delete('post');
+        }
+        
+        window.location.search = params.toString();
+    });
+});
+</script>
+<style>
+    .post-filter {
+    margin: 10px 0;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 5px;
+}
+
+.post-filter label {
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.post-filter input[type="radio"] {
+    margin-right: 5px;
+}
+</style>
+<script>
+document.querySelectorAll('input[name="post"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        // Get current URL and parameters
+        const url = new URL(window.location.href);
+        const params = new URLSearchParams(url.search);
+        
+        // Update or remove the post filter parameter
+        if (this.value) {
+            params.set('post', this.value);
+        } else {
+            params.delete('post');
+        }
+        
+        // Reload the page with new parameters
+        window.location.search = params.toString();
+    });
+});
+</script>
+            {{end}}
+
+            <button type="submit">Filter</button>
+        </form>
+    </div>
+
+    <main class="container">
+        
+        <div class="posts">
+            {{ range .Posts }}
+            <div class="post-card">
+                                     <article id="post-{{ .Post_id }}" class="post"></article>
+
+                <div class="post-categories left-categories">
+                    {{ range .LeftCategories }}
+                    <span class="category-badge">{{ . }}</span>
+                    {{ end }}
+                </div>
+                <div class="post-categories right-categories">
+                    {{ range .RightCategories }}
+                    <span class="category-badge">{{ . }}</span>
+                    {{ end }}
+                </div>
+                <div class="post-header">
+                    <div class="post-meta">
+                        <span class="username-block">
+                            <span class="username">{{ .Username }}</span>
+                            <img src="/static/defaultAV.png" alt="User Avatar" class="user-avatar">
+                        </span>
+                        <span class="post-date">{{ .CreatedAt }}</span>
+                    </div>
+                    <div class="content">
+                        <center>
+                            <h1>{{ .Title1 }}</h1>
+                            <pre>{{.Content}}</pre>
+                        </center>
+
+                    </div>
+                </div>
+
+                <form action="/likedislike" method="POST" class="like-dislike-form">
+
+                    <input type="hidden" name="post_id" value="{{ .Post_id }}">
+                    <button value="false" name="likedislike" class="btn dislike-btn" type="submit">
+                        <p>{{ .CountUserDislike }}</p>
+                        <i class="fa fa-thumbs-down fa-lg" aria-hidden="true"></i>
+                    </button>
+                    <button value="true" name="likedislike" class="btn like-btn" type="submit">
+                        <p>{{ .CountUserlike }}</p>
+                        <i class="fa fa-thumbs-up fa-lg" aria-hidden="true"></i>
+                    </button>
+                    <input type="hidden" name="" id="" value="{{.LikeDislike }}">
+                </form>
+
+                <div class="comment-section">
+                    <form action="/comment" method="GET">
+                        <article id="post-{{ .Post_id }}" class="post"></article>
+                        <label  for="comment">Commenter:</label>
+                        <p  name="testpost"></p> 
+
+    
+                        <input type="hidden" name="post_id" value="{{ .Post_id }}">
+                        <input type="text" name="comment" id="comment" required>
+                        <input type="submit" value="Submit Comment">
+                 <input type="hidden" name="categor" value="{{ .Post_id }}">
+
+                    </form>
+                </div>
+
+                <!-- Comments Toggle Section -->
+
+                <input type="checkbox" id="comments-toggle-{{ .Post_id }}" class="comments-toggle-input">
+                <label for="comments-toggle-{{ .Post_id }}" class="comments-toggle-btn">
+                    <i class="fa fa-comments"></i>Show
+                </label>
+
+                <div class="comments-container">
+                    <h3>Comments</h3>
+                    {{range .Commenters}}
+<div class="comment-card">
+    <div class="comment-header">
+        <img src="/static/defaultAV.png" alt="User Avatar" class="comment-avatar">
+        <div class="comment-author">
+            <strong>{{.Usercommnter}}</strong>
+            <span class="comment-date">{{.TimePost}} {{ .TmieType }}</span>
+        </div>
+    </div>
+    <div class="comment-body">
+        <p>{{.Contentcomment}}</p>
+    </div>
+   <div class="comment-reactions">
+    <form action="/comment_reaction" method="POST">
+        <input type="hidden" name="comment_id" value="{{.CommentID}}">
+        <button type="submit" name="is_like" value="true" 
+                class="comment-like-btn {{if eq .UserReaction 1}}active{{end}}">
+            <span>{{.LikeCount}}</span>
+            <i class="fa fa-thumbs-up"></i>
+        </button>
+        <button type="submit" name="is_like" value="false" 
+                class="comment-dislike-btn {{if eq .UserReaction 0}}active{{end}}">
+            <span>{{.DislikeCount}}</span>
+            <i class="fa fa-thumbs-down"></i>
+        </button>
+    </form>
+</div>
+</div>
+                    
+                    {{else}}
+                    <p>No comments yet. Be the first to comment!</p>
+                    {{end}}
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </main>
+
+    <div id="createPostModal" class="modal small-modal">
+        <div class="modal-content">
+            <span class="close" id="closeModalBtn">&times;</span>
+            <h2 id="creatpost-title">Share Your Thoughts</h2>
+            <form class="create-post-form" action="/creatpost" method="POST">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="title" required>
+                <label for="content">Content:</label>
+                <textarea id="content" name="content" rows="6" required></textarea>
+                <button type="button" id="toggleCategoryBtn" style="margin-bottom: 10px;">
+                    Show/Hide Categories
+                </button>
+                <div id="category-section" style="display: none;">
+                    <label>Category:</label>
+                    <div class="category-buttons">
+                        <label class="category-btn">
+                            <input type="checkbox" name="status" value="tech">
+                            <i class="fas fa-microchip"></i>
+                            <span>Tech</span>
+                        </label>
+                        <label class="category-btn">
+                            <input type="checkbox" name="status" value="jobs">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Jobs</span>
+                        </label>
+                        <label class="category-btn">
+                            <input type="checkbox" name="status" value="news">
+                            <i class="fas fa-newspaper"></i>
+                            <span>News</span>
+                        </label>
+                        <label class="category-btn">
+                            <input type="checkbox" name="status" value="movies">
+                            <i class="fas fa-film"></i>
+                            <span>Movies</span>
+                        </label>
+                        <label class="category-btn">
+                            <input type="checkbox" name="status" value="sport">
+                            <i class="fas fa-basketball-ball"></i>
+                            <span>Sport</span>
+                        </label>
+                       
+                    </div>
+                </div>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var toggleBtn = document.getElementById('toggleCategoryBtn');
+            var categorySection = document.getElementById('category-section');
+            if (toggleBtn && categorySection) {
+                toggleBtn.addEventListener('click', function () {
+                    if (categorySection.style.display === "none") {
+                        categorySection.style.display = "";
+                    } else {
+                        categorySection.style.display = "none";
+                    }
+                });
+            }
+        });
+    </script>
+    <script>
+        // Save scroll position before submitting comment forms
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function () {
+                const scrollY = window.scrollY;
+                // Store in a variable since localStorage is not available
+                window.tempScrollPosition = scrollY;
+            });
+        });
+
+        // Restore scroll position after page reload
+        window.addEventListener('load', function () {
+            if (window.tempScrollPosition !== undefined) {
+                window.scrollTo(0, window.tempScrollPosition);
+                delete window.tempScrollPosition;
+            }
+        });
+    </script>
+</body>
+
+</html>

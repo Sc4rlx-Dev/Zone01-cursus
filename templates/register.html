@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="../static/css/registerStyle.css">
+</head>
+
+<body>
+<div class="main">
+    <div class="container">
+       
+        <form action="/register" method="POST" class="login-form">
+            <h1>Forum Sign Up</h1>
+              <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" minlength="4" maxlength="20" required>
+                {{if .UsernameError}}
+                <div class="error-message">{{.UsernameError}}</div>
+                {{end}}
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email">
+                {{if .EmailError}}
+                <div class="error-message">{{.EmailError}}</div>
+                {{end}}
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" >
+                {{if .PasswordError}}
+                <div class="error-message">{{.PasswordError}}</div>
+                {{end}}
+            </div>
+            <input type="submit" name="register" value="Register">
+            <div class="extra-options">
+                <p>Already have an account?</p>
+                <a href="/login">Log_in</a>            </form>
+        </div>
+    </div>
+</body>
+
+</html>
